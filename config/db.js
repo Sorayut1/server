@@ -1,17 +1,21 @@
 const mysql = require('mysql2');
-require('dotenv').config();
+require('dotenv').config(); // โหลดค่าจาก .env
 
-const connection = mysql.createConnection({
+const db = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  port: process.env.DB_PORT || 3306,
+  port: process.env.DB_PORT || 3306
 });
 
-connection.connect((err) => {
-  if (err) console.error('❌ การเชื่อมต่อ MySQL ล้มเหลว:', err);
-  else console.log('✅ เชื่อมต่อ MySQL สำเร็จ');
+db.connect((err) => {
+  if (err) {
+    console.error('❌ การเชื่อมต่อ MySQL ล้มเหลว:', err);
+  } else {
+    console.log('✅ เชื่อมต่อ MySQL สำเร็จ');
+  }
 });
 
-module.exports = connection; // ใช้ callback
+
+module.exports = db;
